@@ -273,7 +273,6 @@ app.get('/book', checkAuth, (req, res) => {
 });
 app.post('/cancel-booking', checkAuth, (req, res) => {
     const bookingId = req.body.bookingId;
-    // Update the cancel column in the database for the specified bookingId
     const sql = 'UPDATE booking SET cancel = ? WHERE id = ?';
     pool.query(sql, ['yes', bookingId], (err, result) => {
         if (err) {

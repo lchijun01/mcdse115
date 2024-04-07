@@ -247,7 +247,7 @@
             </table>
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
-                    // Query all table rows with the class 'booking-row'
+                    // query all table rows with the class 'booking-row'
                     document.querySelectorAll('.booking-row').forEach(row => {
                         const startdate = row.querySelector('.startdate').textContent.trim();
                         const enddate = row.querySelector('.enddate').textContent.trim();
@@ -255,13 +255,13 @@
                         const starttime = row.querySelector('.starttime').textContent.trim();
                         const endtime = row.querySelector('.endtime').textContent.trim();
                         
-                        // Determine the format based on whether an hourlydate is present
+                        // determine the format based on whether an hourlydate is present
                         if (hourlydate) {
-                            // Format and display the hourly booking time
+                            // display the hourly booking time
                             const appointmentDateDisplay = `${hourlydate} ${starttime} to ${endtime}`;
                             row.querySelector('.appointment-date').textContent = appointmentDateDisplay;
                         } else {
-                            // Format and display the date range
+                            // display the date range
                             const appointmentDateDisplay = `${startdate} to ${enddate}`;
                             row.querySelector('.appointment-date').textContent = appointmentDateDisplay;
                         }
@@ -272,7 +272,6 @@
                         return;
                     }
                 
-                    // Send an AJAX request to cancel the booking
                     fetch('/cancel-booking', {
                         method: 'POST',
                         headers: {
@@ -284,7 +283,6 @@
                         if (!response.ok) {
                             throw new Error('Failed to cancel booking');
                         }
-                        // Reload the page to reflect the updated data
                         location.reload();
                     })
                     .catch(error => {
