@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkHub Review Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" type="image/x-icon" href="/images/icon.ico">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        h1{
+            font-size: 2em;
+        }
+        section{
+            height: 100vh;
+            justify-content: center;
+            width: 100%;
+        }
+        main{
+            margin: 20px 0;
+        }
+        .reviewform{
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            border: 1px solid black;
+            display: flex;
+            flex-direction: column;
+            width: 30%;
+            padding: 5%;
+            text-align: left;
+            font-weight: bold;
+        }
+        .reviewform select{
+            height: 30px;
+            width: 50%;
+        }
+        option{
+            font-size: 20px;
+        }
+        .reviewform button{
+            margin-top: 5%;
+            height: 25px;
+            width: fit-content;
+        }
+        textarea{
+            min-width: 100%;
+            max-width: 100%;
+        }
+        .reviewform-container{
+            position: fixed;
+            justify-content: center;
+            width: 100%;
+            left: 0;
+        }
+        .reviewbutton{
+            width: 100%;
+            display: flex;
+            justify-content: end;
+        }
+        th{
+            line-height: 20px;
+            border: 1px solid black;
+        }
+        td{
+            border: 1px solid black;
+        }
+        tr{
+            line-height: 40px;
+            width: max-content;
+        }
+        tbody{
+            justify-content: space-around;
+        }
+        table{
+            width: 1200px;
+        }
+        .table-container{
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+    <script>
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }        
+    </script>
+</head>
+<body>
+    <%- include('navbar') %>
+    <main>
+        <section>
+            <h1>REVIEW</h1>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Full Name</th>
+                            <th>Appointment Date</th>
+                            <th>Book Date</th>
+                            <th>Country</th>
+                            <th>State</th>
+                            <th>Places</th>
+                            <th>Solution</th>
+                            <th>Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% bookings.forEach(booking => { %>
+                            <tr>
+                                <% let counter = 0; %>
+                                <td><%= ++counter %></td>
+                                <td><%= booking.fullname %></td>
+                                <td><%= booking.startdate %><br>to<br><%= booking.enddate %></td>
+                                <td><%= booking.bookdate %></td>
+                                <td><%= booking.country %></td>
+                                <td><%= booking.state %></td>
+                                <td><%= booking.places %></td>
+                                <td><%= booking.solution %></td>
+                                <td>
+                                    <button onclick="toggleReviewForm('<%= booking.id %>')">Review</button>
+                                    <div class="reviewform-container" id="reviewForm<%= booking.id %>" style="display: none;">
+                                        <form class="reviewform" action="/submit-review" method="POST">
+                                            <input type="hidden" name="bookingId" value="<%= booking.id %>">
+                                            <label for="rating">Rate:</label>
+                                            <select name="rating" id="rating">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                            <label for="comment">Comment:</label>
+                                            <textarea name="comment" id="comment" rows="4" cols="50"></textarea>
+                                            <div class="reviewbutton">
+                                                <button type="submit">Submit Review</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+            <script>
+                function toggleReviewForm(bookingId) {
+                    var reviewForm = document.getElementById('reviewForm' + bookingId);
+                    if (reviewForm.style.display === 'none') {
+                        reviewForm.style.display = 'flex';
+                    } else {
+                        reviewForm.style.display = 'none';
+                    }
+                }
+            </script>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <div class="footernav">
+                <h1>Workhub</h1>
+                <a href="/">Home</a>
+                <a href="/workspaces">Workspaces</a>
+                <a href="/book">Booking</a>
+                <a href="/review">Review</a>
+                <a href="/profile">Manage profile</a>
+            </div>
+            <div>
+                <h1>CONTACT US</h1>
+                <h4><i class="bi bi-whatsapp"></i> Whatsapp : 012-3456789</h4>
+            </div>
+        </div>
+        <p>&copy; 2024 WorkHub. All rights reserved.</p>
+        <button class="scrolltop" onclick="scrollToTop()" id="scroll-top-button"><i class="bi bi-arrow-up-square-fill"></i></button>
+        <script>
+            function scrollToTop() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            
+            window.addEventListener('scroll', function() {
+                var scrollTopButton = document.getElementById('scroll-top-button');
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    scrollTopButton.style.display = "block";
+                } else {
+                    scrollTopButton.style.display = "none";
+                }
+            });
+        </script>
+    </footer>
+</body>
+</html>

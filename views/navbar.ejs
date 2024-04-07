@@ -1,0 +1,18 @@
+<header>
+    <nav>
+        <div class="navbar-container">
+            <a href="/">Home</a>
+            <a href="/workspaces">Workspaces</a>
+            <a href="/book">Bookings</a>
+            <a href="/profile">Profile</a>
+        </div>
+        <div class="navbarlog navbar-container">
+            <% if (loggedIn) { %>
+                <a href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                <form id="logout-form" action="/logout" method="POST" style="display: none;"></form>
+            <% } else { %>
+                <a href="/login">Login</a>
+            <% } %>
+        </div>
+    </nav>
+</header>  

@@ -1,0 +1,303 @@
+*{
+    font-family: 'Courier New';
+}
+body{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+}
+main{
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+header{
+    background-color: #ffffff;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+nav{
+    background-color: #ffffff;
+    color: #ffffff;
+    padding: 10px;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}
+.navbarlog{
+    position: absolute;
+    right: 20%;
+}
+.navbar-container a{
+    color: black;
+    margin: 0 15px;
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
+    transition-duration: 0.2s;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+.navbar-container a::after{
+    content: '';
+    display: block;
+    margin: auto;
+    height: 2px;
+    width: 0%;
+    background: rgb(255, 0, 0);
+    transition: width 0.4s ease;
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.navbar-container a:hover::after{
+    width: 100%;
+}
+.navbar-container a:hover{
+    color: rgb(255, 0, 0);
+}
+.scrolltop{
+    position: fixed;
+    right: 20px;
+    bottom: 30px;
+    height: fit-content;
+    width: fit-content;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    display: none;
+}
+.scrolltop:hover{
+    background-color: transparent;
+    color: red;
+}
+.scrolltop i{
+    font-size: 40px;
+}
+#firstmain{
+    position: relative;
+    background-image: url('/images/2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+    width: 100%;
+    height: 50vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+#firstmain::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+#firstmain h1{
+    width: 70%;
+    color: white;
+    z-index: 3;
+    line-height: 1.5;
+    text-align: left;
+}
+#workspace{
+    height: 65vh;
+    width: 100%;
+}
+.wscontainer{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5% 10%;
+}
+.wscontainer button{
+    position: relative;
+    z-index: 3;
+    margin-top: 45%;
+}
+.privateofc p{
+    color: white;
+    text-align: left;
+    margin: 10%;
+    line-height: 1.5;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+}
+#workspace a{
+    text-decoration: underline;
+    color: rgb(39, 39, 39);
+    font-weight: bold;
+}
+.privateofc{
+    position: relative;
+    background-image: url('/images/private1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 30%;
+    height: 300px;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: background-image 0.5s ease;
+}
+.privateofc::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    border-radius: 15px;
+}
+.privateofc h1{
+    position: relative;
+    z-index: 2;
+    color: white;
+}
+.hover-image:hover{
+    background-image: url('/images/private2.jpg');
+}
+.meetingrm{
+    position: relative;
+    background-image: url('/images/meeting1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 30%;
+    height: 300px;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: background-image 0.5s ease;
+}
+.meetingrm::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    border-radius: 15px;
+}
+.meetingrm h1{
+    position: relative;
+    z-index: 2;
+    color: white;
+}
+.hover-image1:hover {
+    background-image: url('/images/meeting2.jpg');
+}
+.meetingrm p{
+    color: white;
+    text-align: left;
+    margin: 10%;
+    line-height: 1.5;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+}
+.eventspace{
+    position: relative;
+    background-image: url('/images/event1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 30%;
+    height: 300px;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: background-image 0.5s ease;
+}
+.eventspace::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    border-radius: 15px;
+}
+.eventspace h1{
+    position: relative;
+    z-index: 2;
+    color: white;
+}
+.hover-image2:hover {
+    background-image: url('/images/event2.jpg');
+}
+.eventspace p{
+    color: white;
+    text-align: left;
+    margin: 10%;
+    line-height: 1.5;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+}
+
+footer{
+    border-top: 1px solid black;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 50px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 30vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.footer-container{
+    justify-content: space-between;
+    width: 30%;
+    display: flex;
+    align-items: center;
+}
+.footernav{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 1.5;
+}
+.footernav a{
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+}
+.footernav a:hover{
+    color: rgba(255, 0, 0, 0.719);
+}
+footer p{
+    position: absolute;
+    bottom: 0;
+    right: 30px;
+}
+#workspacelist{
+    height: 100vh;
+    width: 100%;
+    background-color: #ffffff;
+}
+.flex{
+    display: flex;
+}

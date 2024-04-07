@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkHub - Booking</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" type="image/x-icon" href="/images/icon.ico">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        section{
+            height: 90vh;
+            width: 100%;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+        }
+        #form-step1{
+            display: block;
+            border: 1px solid black;
+            border-radius: 15px;
+            padding: 6%;
+            margin-top: 1%;
+        }
+        #form-step1 div{
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        input, label, select{
+            margin-top: 10px;
+            height: 35px;
+            align-items: center;
+            display: flex;
+        }
+        label{
+            height: 20px;
+        }
+        h2{
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .flex{
+            width: 100%;
+            justify-content: center;
+        }
+        .flex form{
+            width: 60%;
+        }
+        button{
+            width: 10%;
+        }
+        .buttonnext{
+            width: 100%;
+            align-items: end;
+            padding-top: 30px;
+        }
+        #form-step2{
+            display: none;
+            border: 1px solid black;
+            border-radius: 15px;
+            padding: 6%;
+            margin-top: 1%;
+        }
+        #form-step2 div{
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        #form-step3{
+            display: none;
+            border: 1px solid black;
+            border-radius: 15px;
+            padding: 6%;
+            margin-top: 1%;
+        }
+        #form-step3 div{
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        .return{
+            position: absolute;
+            color: black;
+            width: fit-content;
+        }
+        .return:hover{
+            color: rgba(255, 0, 0, 0.801);
+        }
+        .return-container{
+            text-align: left;
+        }
+        button{
+            transition-duration: 0.4s;
+            background-color: transparent;
+            border: 1px solid black;
+            border-radius: 5px;
+            width: 100px;
+            height: 50px;
+        }
+        button:hover{
+            background-color: rgba(255, 0, 0, 0.801);
+            color: white;
+            border: none;
+        }
+        h1{
+            font-size: 2em;
+        }
+        main{
+            margin: 20px 0;
+        }
+        .checkbox{
+            width: 20px;
+        }
+        .flexrow{
+            display: flex;
+            flex-direction: row !important;
+            justify-content: space-around;
+        }
+        #form-step3{
+            display: none;
+        }
+        #timeSelection{
+            flex-direction: row !important;
+        }
+        #dateSelection{
+            flex-direction: row !important;
+        }
+        #timeSelection div{
+            width: 100%;
+        }
+        #dateSelection div{
+            width: 100%;
+        }
+    </style>
+    <script>
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }        
+    </script>
+</head>
+<body>
+    <%- include('navbar') %>
+    <main>
+        <section>
+            <h1>FILL YOUR BOOKING DETAIL.</h1>
+            <div class="flex">
+                <form action="/booking" method="post">
+                    <div id="form-step1">
+                        <h2>First step.</h2>
+                        <div>
+                            <label for="name">Full Name*</label>
+                            <input type="text" name="fullname" id="fullname">
+                        </div>
+                        <div>
+                            <label for="email">Email*</label>
+                            <input type="text" name="email" id="email">
+                        </div>
+                        <div>
+                            <label for="phone">Phone number*</label>
+                            <input type="number" name="phone" id="phone">
+                        </div>
+                        <div class="buttonnext">
+                            <button type="button" onclick="showSecondForm();">Next</button>
+                        </div>
+                    </div>
+                    <div id="form-step2">
+                        <div class="return-container">
+                            <a class="return" href="#" onclick="backFirstForm(); return false;">Return</a>
+                        </div>
+                        <h2>Second step.</h2>
+                        <div>
+                            <label for="solution">What are you looking for*</label>
+                            <select name="solution" id="solution">
+                                <option value="">Select spaces</option>
+                                <option value="Private Office">Private Office</option>
+                                <option value="Event Space">Event Space</option>
+                                <option value="Meeting Room">Meeting Room</option>
+                                <option value="Shared Office">Shared Office</option>
+                                <option value="Business Lounge">Business Lounge</option>
+                                <option value="Co-working Space">Co-working Space</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="country">Location*</label>
+                            <select name="country" id="country">
+                                <option value="">Select Country</option>
+                                <option value="Malaysia">Malaysia</option>
+                                <option value="Singapore">Singapore</option>
+                                <option value="Thailand">Thailand</option>
+                            </select>
+                            <select name="state" id="state">
+                                <option value="">Select State</option>
+                            </select>
+                            <select name="placename" id="placename">
+                                <option value="">Select Place</option>
+                            </select>
+                        </div>
+                        <div class="buttonnext">
+                            <button type="button" onclick="showLastForm();">Next</button>
+                        </div>
+                    </div>
+                    <div id="form-step3">
+                        <div class="return-container">
+                            <a class="return" href="#" onclick="backSecondForm(); return false;">Return</a>
+                        </div>
+                        <h2>Last step.</h2>
+                        <div>
+                            <label for="">Number of people*</label>
+                            <input type="number" name="capacity">
+                        </div>
+                        <div id="bookingOptions">
+                        </div>
+                            
+                        <div id="timeSelection" style="display:none;">
+                            <div>
+                                Date: <input type="date" id="hourlydate" name="hourlydate" style="width:45%">
+                            </div>
+                            <div>
+                                Start Time: <input type="time" id="startTime" name="startTime" style="width:45%">
+                            </div>
+                            <div>
+                                End Time: <input type="time" id="endTime" name="endTime" style="width:45%">
+                            </div>
+                        </div>
+                        <div id="dateSelection" style="display:none;">
+                            <div>
+                                Start Date<input type="date" id="startdate" name="startdate" style="width:45%">
+                            </div>
+                            <div>
+                                End Date<input type="date" id="enddate" name="enddate" style="width:45%">
+                            </div>
+                        </div>
+                        <div>
+                            <strong>Total Price: <span id="totalPrice">0</span></strong>
+                            <input type="hidden" name="totalPrice" id="hiddenTotalPrice">
+                        </div>
+                        <div class="buttonnext">
+                            <button type="submit">Comfirm book</button>
+                        </div>
+                    </div>
+                </form>
+                <script>
+                    function showSecondForm() {
+                        document.getElementById('form-step1').style.display = 'none';
+                        document.getElementById('form-step2').style.display = 'block';
+                    }
+                    function backFirstForm() {
+                        document.getElementById('form-step1').style.display = 'block';
+                        document.getElementById('form-step2').style.display = 'none';
+                    }
+                    function showLastForm() {
+                        document.getElementById('form-step2').style.display = 'none';
+                        document.getElementById('form-step3').style.display = 'block';
+                    }
+                    function backSecondForm() {
+                        document.getElementById('form-step2').style.display = 'block';
+                        document.getElementById('form-step3').style.display = 'none';
+                    }
+                    function toggleTimeInputs(display) {
+                        const timeSelectionDiv = document.getElementById('timeSelection');
+                        timeSelectionDiv.style.display = display ? 'flex' : 'none';
+                    }
+                    function toggleDateInputs(display) {
+                        const timeSelectionDiv = document.getElementById('dateSelection');
+                        timeSelectionDiv.style.display = display ? 'flex' : 'none';
+                    }
+                    document.getElementById('startTime').addEventListener('change', calculateTotalPrice);
+                    document.getElementById('endTime').addEventListener('change', calculateTotalPrice);
+                    document.getElementById('startdate').addEventListener('change', calculateTotalPrice);
+                    document.getElementById('enddate').addEventListener('change', calculateTotalPrice);
+                    function calculateTotalPrice() {
+                        const hourlyCheckbox = document.querySelector('input[name="hourlyCheckbox"]:checked');
+                        const dailyCheckbox = document.querySelector('input[name="dailyCheckbox"]:checked');
+                        const monthlyCheckbox = document.querySelector('input[name="monthlyCheckbox"]:checked');
+                        const yearlyCheckbox = document.querySelector('input[name="yearlyCheckbox"]:checked');
+                    
+                        const startTimeInput = document.getElementById('startTime');
+                        const endTimeInput = document.getElementById('endTime');
+                        const startDateInput = document.getElementById('startdate');
+                        const endDateInput = document.getElementById('enddate');
+                        const totalPriceElement = document.getElementById('totalPrice');
+                    
+                        let total = 0;
+                    
+                        // hourly price calculation
+                        if (hourlyCheckbox && startTimeInput && endTimeInput) {
+                            const priceHourly = parseFloat(hourlyCheckbox.value);
+                            const startTime = startTimeInput.value;
+                            const endTime = endTimeInput.value;
+                            const startDate = new Date(`1970-01-01T${startTime}`);
+                            const endDate = new Date(`1970-01-01T${endTime}`);
+                            const durationHours = (endDate - startDate) / (1000 * 60 * 60);
+                    
+                            if (durationHours > 0) {
+                                total = durationHours * priceHourly;
+                            } else {
+                                console.log('End time must be after start time.');
+                            }
+                        }
+                        
+                        // daily price calculation
+                        if (dailyCheckbox && startDateInput && endDateInput) {
+                            const priceDaily = parseFloat(dailyCheckbox.value);
+                            const startDate = new Date(startDateInput.value);
+                            const endDate = new Date(endDateInput.value);
+                            const durationDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1; // +1 to include the start day
+                            
+                            if (durationDays > 0) {
+                                total = durationDays * priceDaily;
+                            } else {
+                                console.log('End date must be after start date.');
+                            }
+                        }
+                    
+                        // monthly price calculation
+                        if (monthlyCheckbox && startDateInput && endDateInput) {
+                            const priceMonthly = parseFloat(monthlyCheckbox.value);
+                            console.log(priceMonthly);
+                            const start = new Date(startDateInput.value);
+                            const end = new Date(endDateInput.value);
+                            const startMonth = start.getMonth() + (start.getFullYear() * 12);
+                            const endMonth = end.getMonth() + (end.getFullYear() * 12) + (end.getDate() >= start.getDate() ? 1 : 0);
+                            const months = endMonth - startMonth;
+                    
+                            total += months * priceMonthly;
+                        }
+                    
+                        // yearly price calculation
+                        if (yearlyCheckbox && startDateInput && endDateInput) {
+                            const priceYearly = parseFloat(yearlyCheckbox.value);
+                            const start = new Date(startDateInput.value);
+                            const end = new Date(endDateInput.value);
+                            const years = end.getFullYear() - start.getFullYear();
+                    
+                            total += years * priceYearly;
+                        }
+                    
+                        // update the total price display
+                        totalPriceElement.textContent = `Total Price: ${total.toFixed(2)}`;
+                        const hiddenTotalPriceInput = document.getElementById('hiddenTotalPrice');
+                        hiddenTotalPriceInput.value = total.toFixed(2);
+                    }
+                    // for update the option of state and placename(workspaces) in the specify country and the solution(type of places)
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var countrySelect = document.getElementById('country');
+                        var stateSelect = document.getElementById('state');
+                        var placenameSelect = document.getElementById('placename');
+                        var solutionSelect = document.getElementById('solution');
+                        
+                        var urlParams = new URLSearchParams(window.location.search);
+                        var countryParam = urlParams.get('country');
+                        
+                        countrySelect.value = countryParam;
+                        
+                        fetchStates(countryParam);
+                        countrySelect.addEventListener('change', function() {
+                            fetchStates(this.value);
+                        });
+                        stateSelect.addEventListener('change', function() {
+                            fetchPlaces(countrySelect.value, this.value);
+                        });
+                        
+                        solutionSelect.addEventListener('change', function() {
+                            fetchFilteredPlaces(countrySelect.value, stateSelect.value, this.value);
+                        });
+                        
+                        function fetchStates(country) {
+                            fetch(`/get-states?country=${country}`)
+                                .then(response => response.json())
+                                .then(states => {
+                                    stateSelect.innerHTML = '<option value="">Select State</option>' + states.map(s => `<option value="${s.state}">${s.state}</option>`).join('');
+                                });
+                        }
+                        function fetchPlaces(country, state) {
+                            fetch(`/get-places?country=${country}&state=${state}`)
+                                .then(response => response.json())
+                                .then(places => {
+                                    placenameSelect.innerHTML = places.map(p => `<option value="${p.placename}">${p.placename}</option>`).join('');
+                                    fetchFilteredPlaces(country, state, solutionSelect.value);
+                                });
+                        }
+                        function fetchFilteredPlaces(country, state, solution) {
+                            var queryParams = new URLSearchParams({ country, state, solution }).toString();
+                            fetch(`/get-filtered-places?${queryParams}`)
+                                .then(response => response.json())
+                                .then(places => {
+                                    placenameSelect.innerHTML = places.map(p => `<option value="${p.placename}">${p.placename}</option>`).join('');
+                                    if (places.length === 1) {
+                                        fetchBookingOptions(country, state, places[0].placename);
+                                    }
+                                });
+                        }
+                        function fetchBookingOptions(country, state, placename) {
+                            console.log( country, state, placename)
+                            fetch(`/get-booking-options?country=${encodeURIComponent(country)}&state=${encodeURIComponent(state)}&placename=${encodeURIComponent(placename)}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    const bookingOptionsDiv = document.getElementById('bookingOptions');
+                                    bookingOptionsDiv.innerHTML = '';
+                                    if (data.ablehourly === 'yes') {
+                                        const hourlyCheckbox = document.createElement('input');
+                                        hourlyCheckbox.type = 'checkbox';
+                                        hourlyCheckbox.name = 'hourlyCheckbox';
+                                        hourlyCheckbox.value = data.pricehourly;
+                                        hourlyCheckbox.addEventListener('change', function() {
+                                            toggleTimeInputs(this.checked);
+                                            calculateTotalPrice();
+                                        });
+                        
+                                        const hourlyLabel = document.createElement('label');
+                                        hourlyLabel.textContent = `Hourly (Price: ${data.pricehourly}) `;
+                                        hourlyLabel.appendChild(hourlyCheckbox);
+                                        bookingOptionsDiv.appendChild(hourlyLabel);
+                                        bookingOptionsDiv.appendChild(document.createElement('br'));
+                        
+                                        const timeSelectionDiv = document.getElementById('timeSelection');
+                                        timeSelectionDiv.style.display = 'none';
+                                    }
+                                    if (placenameSelect.options.length === 2) {
+                                        toggleTimeInputs(data.ablehourly === 'yes');
+                                        calculateTotalPrice();
+                                    }
+                                    if (data.abledaily === 'yes') {
+                                        const dailyCheckbox = document.createElement('input');
+                                        dailyCheckbox.type = 'checkbox';
+                                        dailyCheckbox.name = 'dailyCheckbox';
+                                        dailyCheckbox.value = data.pricedaily;
+                                        dailyCheckbox.addEventListener('change', function() {
+                                            toggleDateInputs(this.checked);
+                                            calculateTotalPrice();
+                                        });
+                        
+                                        const dailyLabel = document.createElement('label');
+                                        dailyLabel.textContent = `Daily (Price: ${data.pricedaily}) `;
+                                        dailyLabel.appendChild(dailyCheckbox);
+                                        bookingOptionsDiv.appendChild(dailyLabel);
+                                        bookingOptionsDiv.appendChild(document.createElement('br'));
+                        
+                                        const timeSelectionDiv = document.getElementById('dateSelection');
+                                        timeSelectionDiv.style.display = 'none';
+                                    }
+                                    if (placenameSelect.options.length === 2) {
+                                        toggleDateInputs(data.abledaily === 'yes');
+                                        calculateTotalPrice();
+                                    }
+                                    if (data.ablemonthly === 'yes') {
+                                        const monthlyCheckbox = document.createElement('input');
+                                        monthlyCheckbox.type = 'checkbox';
+                                        monthlyCheckbox.name = 'monthlyCheckbox';
+                                        monthlyCheckbox.value = data.pricemonthly;
+                                        monthlyCheckbox.addEventListener('change', function() {
+                                            toggleDateInputs(this.checked);
+                                            calculateTotalPrice();
+                                        });
+                        
+                                        const monthlyLabel = document.createElement('label');
+                                        monthlyLabel.textContent = `Monthly (Price: ${data.pricemonthly}) `;
+                                        monthlyLabel.appendChild(monthlyCheckbox);
+                                        bookingOptionsDiv.appendChild(monthlyLabel);
+                                        bookingOptionsDiv.appendChild(document.createElement('br'));
+                        
+                                        const timeSelectionDiv = document.getElementById('dateSelection');
+                                        timeSelectionDiv.style.display = 'none';
+                                    }
+                                    if (placenameSelect.options.length === 2) {
+                                        toggleDateInputs(data.ablemonthly === 'yes');
+                                        calculateTotalPrice();
+                                    }
+                                    if (data.ableyearly === 'yes') {
+                                        const yearlyCheckbox = document.createElement('input');
+                                        yearlyCheckbox.type = 'checkbox';
+                                        yearlyCheckbox.name = 'yearlyCheckbox';
+                                        yearlyCheckbox.value = data.priceyearly;
+                                        yearlyCheckbox.addEventListener('change', function() {
+                                            toggleDateInputs(this.checked);
+                                            calculateTotalPrice();
+                                        });
+                        
+                                        const yearlyLabel = document.createElement('label');
+                                        yearlyLabel.textContent = `Daily (Price: ${data.priceyearly}) `;
+                                        yearlyLabel.appendChild(yearlyCheckbox);
+                                        bookingOptionsDiv.appendChild(yearlyLabel);
+                                        bookingOptionsDiv.appendChild(document.createElement('br'));
+                        
+                                        const timeSelectionDiv = document.getElementById('dateSelection');
+                                        timeSelectionDiv.style.display = 'none';
+                                    }
+                                    if (placenameSelect.options.length === 2) {
+                                        toggleDateInputs(data.ableyearly === 'yes');
+                                        calculateTotalPrice();
+                                    }
+                                })
+                                .catch(error => console.error('Error fetching booking options:', error));
+                        }
+                    });
+                </script>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <div class="footernav">
+                <h1>Workhub</h1>
+                <a href="/">Home</a>
+                <a href="/workspaces">Workspaces</a>
+                <a href="/book">Booking</a>
+                <a href="/review">Review</a>
+                <a href="/profile">Manage profile</a>
+            </div>
+            <div>
+                <h1>CONTACT US</h1>
+                <h4><i class="bi bi-whatsapp"></i> Whatsapp : 012-3456789</h4>
+            </div>
+        </div>
+        <p>&copy; 2024 WorkHub. All rights reserved.</p>
+        <button class="scrolltop" onclick="scrollToTop()" id="scroll-top-button"><i class="bi bi-arrow-up-square-fill"></i></button>
+        <script>
+            function scrollToTop() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            
+            window.addEventListener('scroll', function() {
+                var scrollTopButton = document.getElementById('scroll-top-button');
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    scrollTopButton.style.display = "block";
+                } else {
+                    scrollTopButton.style.display = "none";
+                }
+            });
+        </script>
+    </footer>
+</body>
+</html>

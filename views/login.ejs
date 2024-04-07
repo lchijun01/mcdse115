@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkHub Register</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" type="image/x-icon" href="/images/icon.ico">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        section{
+            height: 70vh;
+            width: 100%;
+        }
+        h1{
+            font-size: 2em;
+        }
+        main{
+            margin: 20px 0;
+        }
+        form{
+            padding-top: 5%;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            line-height: 2;
+            font-size: 20px;
+            width: 20%;
+        }
+        input{
+            height: 20px;
+        }
+        .button-container{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        button{
+            margin: 10% 10%;
+            width: 50%;
+        }
+        .center{
+            display: flex;
+            justify-content: center;
+        }
+        .error{
+            position: absolute;
+            color: red;
+        }
+    </style>
+    <script>
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }        
+    </script>
+</head>
+<body>
+    <%- include('navbar') %>
+    <main>
+        <section>
+            <h1>LOGIN</h1>
+            <div class="center">
+                <% if (errorMsg) { %>
+                    <p class="error"><%= errorMsg %></p>
+                <% } %>
+                <form action="/login" method="post">
+                    <label for="usernameOrEmail">Username / Email</label>
+                    <input type="text" name="usernameOrEmail" id="usernameOrEmail">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password">
+                    <div class="button-container">
+                        <button type="submit">Login</button>
+                    </div>
+                </form>
+            </div>
+            <a href="/register">Register an account.</a>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <div class="footernav">
+                <h1>Workhub</h1>
+                <a href="/">Home</a>
+                <a href="/workspaces">Workspaces</a>
+                <a href="/book">Booking</a>
+                <a href="/review">Review</a>
+                <a href="/profile">Manage profile</a>
+            </div>
+            <div>
+                <h1>CONTACT US</h1>
+                <h4><i class="bi bi-whatsapp"></i> Whatsapp : 012-3456789</h4>
+            </div>
+        </div>
+        <p>&copy; 2024 WorkHub. All rights reserved.</p>
+        <button class="scrolltop" onclick="scrollToTop()" id="scroll-top-button"><i class="bi bi-arrow-up-square-fill"></i></button>
+        <script>
+            function scrollToTop() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            
+            window.addEventListener('scroll', function() {
+                var scrollTopButton = document.getElementById('scroll-top-button');
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    scrollTopButton.style.display = "block";
+                } else {
+                    scrollTopButton.style.display = "none";
+                }
+            });
+        </script>
+    </footer>
+</body>
+</html>

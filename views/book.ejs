@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkHub - Bookings</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" type="image/x-icon" href="/images/icon.ico">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        section{
+            min-height: 80vh;
+            width: 100%;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+        }
+        #form-step1{
+            display: block;
+            border: 1px solid black;
+            border-radius: 15px;
+            padding: 6%;
+            margin-top: 1%;
+        }
+        #form-step1 div{
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        input, label, select{
+            margin-top: 10px;
+            height: 35px;
+            align-items: center;
+            display: flex;
+        }
+        label{
+            height: 20px;
+        }
+        h2{
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .flex{
+            width: 100%;
+            justify-content: center;
+        }
+        .flex form{
+            width: 60%;
+        }
+        button{
+            width: 10%;
+        }
+        .buttonnext{
+            width: 100%;
+            align-items: end;
+            padding-top: 30px;
+        }
+        #form-step2{
+            display: none;
+            border: 1px solid black;
+            border-radius: 15px;
+            padding: 6%;
+            margin-top: 1%;
+        }
+        #form-step2 div{
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        #form-step3{
+            display: none;
+            border: 1px solid black;
+            border-radius: 15px;
+            padding: 6%;
+            margin-top: 1%;
+        }
+        #form-step3 div{
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        .return{
+            position: absolute;
+            color: black;
+            width: fit-content;
+        }
+        .return:hover{
+            color: rgba(255, 0, 0, 0.801);
+        }
+        .return-container{
+            text-align: left;
+        }
+        button{
+            transition-duration: 0.4s;
+            background-color: transparent;
+            border: 1px solid black;
+            border-radius: 5px;
+            width: 100px;
+            height: 50px;
+        }
+        button:hover{
+            background-color: rgba(255, 0, 0, 0.801);
+            color: white;
+            border: none;
+        }
+        h1{
+            font-size: 2em;
+        }
+        main{
+            margin: 20px 0;
+        }
+        .checkbox{
+            width: 20px;
+        }
+        .flexrow{
+            display: flex;
+            flex-direction: row !important;
+            justify-content: space-around;
+        }
+        #form-step3{
+            display: none;
+        }
+        th{
+            line-height: 20px;
+            border: 1px solid black;
+            border-radius: 8px;
+        }
+        tr{
+            line-height: 40px;
+            width: max-content;
+            padding: 5%;
+        }
+        tbody{
+            justify-content: space-around;
+        }
+        table{
+            width: 80%;
+            margin: 5%;
+        }
+        a{
+            color: rgb(255, 142, 142);
+            margin: 0 15px;
+            font-size: 20px;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            transition-duration: 0.2s;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        a:hover{
+            color: red;
+        }
+    </style>
+    <script>
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }        
+    </script>
+</head>
+<body>
+    <%- include('navbar') %>
+    <main>
+        <section>
+            <h1>BOOKINGS</h1>
+            <a href="workspaces">BOOK YOUR WORKSPACE NOW !</a>
+            <h2>Upcoming Bookings</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Place</th>
+                        <th>Capacity</th>
+                        <th>Appointment Date</th>
+                        <th>Booking Date</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% upcomingBookings.forEach(booking => { %>
+                        <tr class="booking-row">
+                            <td><%= booking.fullname %></td>
+                            <td><%= booking.places %></td>
+                            <td><%= booking.capacity %></td>
+                            <td class="appointment-date">
+                                <span class="startdate"><%= booking.startdate %></span>
+                                <span class="enddate"><%= booking.enddate %></span>
+                                <span class="hourlydate" style="display:none;"><%= new Date(booking.hourlydate).toLocaleDateString('en-GB') %></span>
+                                <span class="starttime" style="display:none;"><%= booking.starttime %></span>
+                                <span class="endtime" style="display:none;"><%= booking.endtime %></span>
+                            </td>
+                            <td><%= new Date(booking.bookdate).toLocaleDateString('en-GB') %></td>
+                            <td>
+                                <button onclick="cancelBooking('<%= booking.id %>')">CANCEL</button>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            <h2>Canceled Bookings</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Place</th>
+                        <th>Capacity</th>
+                        <th>Appointment Date</th>
+                        <th>Booking Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% canceledBookings.forEach(booking => { %>
+                        <tr>
+                            <td><%= booking.fullname %></td>
+                            <td><%= booking.places %></td>
+                            <td><%= booking.capacity %></td>
+                            <td><%= booking.startdate %> to <%= booking.enddate %></td>
+                            <td><%= booking.bookdate %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            <h2>Passed Bookings</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Place</th>
+                        <th>Capacity</th>
+                        <th>Appointment Date</th>
+                        <th>Booking Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% passedBookings.forEach(booking => { %>
+                        <tr>
+                            <td><%= booking.fullname %></td>
+                            <td><%= booking.places %></td>
+                            <td><%= booking.capacity %></td>
+                            <td><%= booking.startdate %> to <%= booking.enddate %></td>
+                            <td><%= booking.bookdate %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Query all table rows with the class 'booking-row'
+                    document.querySelectorAll('.booking-row').forEach(row => {
+                        const startdate = row.querySelector('.startdate').textContent.trim();
+                        const enddate = row.querySelector('.enddate').textContent.trim();
+                        const hourlydate = row.querySelector('.hourlydate').textContent.trim();
+                        const starttime = row.querySelector('.starttime').textContent.trim();
+                        const endtime = row.querySelector('.endtime').textContent.trim();
+                        
+                        // Determine the format based on whether an hourlydate is present
+                        if (hourlydate) {
+                            // Format and display the hourly booking time
+                            const appointmentDateDisplay = `${hourlydate} ${starttime} to ${endtime}`;
+                            row.querySelector('.appointment-date').textContent = appointmentDateDisplay;
+                        } else {
+                            // Format and display the date range
+                            const appointmentDateDisplay = `${startdate} to ${enddate}`;
+                            row.querySelector('.appointment-date').textContent = appointmentDateDisplay;
+                        }
+                    });
+                });
+                function cancelBooking(bookingId) {
+                    if (!confirm('Are you sure you want to cancel this booking?')) {
+                        return;
+                    }
+                
+                    // Send an AJAX request to cancel the booking
+                    fetch('/cancel-booking', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ bookingId: bookingId })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to cancel booking');
+                        }
+                        // Reload the page to reflect the updated data
+                        location.reload();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Failed to cancel booking');
+                    });
+                }
+            </script>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <div class="footernav">
+                <h1>Workhub</h1>
+                <a href="/">Home</a>
+                <a href="/workspaces">Workspaces</a>
+                <a href="/book">Booking</a>
+                <a href="/review">Review</a>
+                <a href="/profile">Manage profile</a>
+            </div>
+            <div>
+                <h1>CONTACT US</h1>
+                <h4><i class="bi bi-whatsapp"></i> Whatsapp : 012-3456789</h4>
+            </div>
+        </div>
+        <p>&copy; 2024 WorkHub. All rights reserved.</p>
+        <button class="scrolltop" onclick="scrollToTop()" id="scroll-top-button"><i class="bi bi-arrow-up-square-fill"></i></button>
+        <script>
+            function scrollToTop() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            
+            window.addEventListener('scroll', function() {
+                var scrollTopButton = document.getElementById('scroll-top-button');
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    scrollTopButton.style.display = "block";
+                } else {
+                    scrollTopButton.style.display = "none";
+                }
+            });
+        </script>
+    </footer>
+</body>
+</html>
